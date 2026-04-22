@@ -17,7 +17,7 @@ import requests
 DNSMASQ_PATTERN = re.compile(r"^server=/(.+)/[\d.]+$")
 
 # Timeout for HTTP requests (seconds)
-REQUEST_TIMEOUT = 30
+REQUEST_TIMEOUT = 10
 # Retry count for failed downloads
 MAX_RETRIES = 3
 
