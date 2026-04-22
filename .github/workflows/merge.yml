@@ -1,0 +1,72 @@
+name: Merge Rules
+
+on:
+  schedule:
+    # Run daily at UTC 22:00
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      - name: Run merge script
+        run: python merge_rules.py
+
+      - name: Push files to merge branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          COMMIT_MSG="Update merged rules $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          BRANCH="release"
+
+          # Set up a temporary publish directory
+          PUBLISH_DIR=$(mktemp -d)
+          cp output/*.txt "$PUBLISH_DIR/"
+
+          cd "$PUBLISH_DIR"
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add origin "$REMOTE_URL"
+
+          # Check if the release branch already exists on remote
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            # Branch exists — fetch it and compare
+            git fetch origin "$BRANCH"
+
+            # Check for changes by comparing file tree hashes
+            git add -A
+            NEW_TREE=$(git write-tree)
+            OLD_TREE=$(git rev-parse "origin/${BRANCH}^{tree}")
+
+            if [ "$NEW_TREE" = "$OLD_TREE" ]; then
+              echo "No changes detected. Skipping push."
+              exit 0
+            fi
+
+            echo "Changes detected. Updating branch..."
+          fi
+
+          # Create an orphan commit and force-push
+          git checkout --orphan "$BRANCH"
+          git add -A
+          git commit -m "$COMMIT_MSG"
+          git push -f origin "$BRANCH"
+          echo "Successfully pushed to $BRANCH branch."

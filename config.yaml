@@ -1,0 +1,36 @@
+# Rule merge configuration
+# Each rule type has a list of sources and an optional exclusion list.
+# Sources are URLs to download rule files from.
+# Exclusions are exact-match entries to remove from the final merged output.
+
+rules:
+  proxy-domain:
+    sources:
+      - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/proxy-domain.txt
+      - https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/refs/heads/release/gfw.txt
+    exclusions: []
+
+  direct-domain:
+    sources:
+      - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-domain.txt
+      - https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/refs/heads/master/accelerated-domains.china.conf
+      - https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/refs/heads/master/apple.china.conf
+    exclusions:
+      - cn
+      - top
+      - wang
+      - xn--55qx5d
+
+  direct-ip-v4:
+    sources:
+      - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v4.txt
+      - https://ispip.clang.cn/all_cn.txt
+      - https://raw.githubusercontent.com/gaoyifan/china-operator-ip/refs/heads/ip-lists/china.txt
+    exclusions: []
+
+  direct-ip-v6:
+    sources:
+      - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v6.txt
+      - https://ispip.clang.cn/all_cn_ipv6.txt
+      - https://raw.githubusercontent.com/gaoyifan/china-operator-ip/refs/heads/ip-lists/china6.txt
+    exclusions: []
