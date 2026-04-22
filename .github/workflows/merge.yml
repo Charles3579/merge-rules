@@ -28,45 +28,42 @@ jobs:
       - name: Run merge script
         run: python merge_rules.py
 
-      - name: Push files to merge branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Switch to release branch (create if missing)
+        shell: bash
         run: |
-          REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          COMMIT_MSG="Update merged rules $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-          BRANCH="release"
+          set -euo pipefail
 
-          # Set up a temporary publish directory
-          PUBLISH_DIR=$(mktemp -d)
-          cp output/*.txt "$PUBLISH_DIR/"
-
-          cd "$PUBLISH_DIR"
-          git init
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add origin "$REMOTE_URL"
-
-          # Check if the release branch already exists on remote
-          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-            # Branch exists — fetch it and compare
-            git fetch origin "$BRANCH"
-
-            # Check for changes by comparing file tree hashes
-            git add -A
-            NEW_TREE=$(git write-tree)
-            OLD_TREE=$(git rev-parse "origin/${BRANCH}^{tree}")
-
-            if [ "$NEW_TREE" = "$OLD_TREE" ]; then
-              echo "No changes detected. Skipping push."
-              exit 0
-            fi
-
-            echo "Changes detected. Updating branch..."
+          # 检查远端是否已有 release 分支
+          if git ls-remote --heads origin release | grep -q 'refs/heads/release'; then
+            git checkout -B release origin/release
+          else
+            # 创建孤儿分支（无历史）
+            git checkout --orphan release
+            # 清空索引中的文件（工作区保留）
+            git rm -rf . >/dev/null 2>&1 || true
           fi
 
-          # Create an orphan commit and force-push
-          git checkout --orphan "$BRANCH"
-          git add -A
-          git commit -m "$COMMIT_MSG"
-          git push -f origin "$BRANCH"
-          echo "Successfully pushed to $BRANCH branch."
+          # 将产物放到仓库根目录
+          cp -f output/direct-domain.txt ./direct-domain.txt
+          cp -f output/proxy-domain.txt ./proxy-domain.txt
+          cp -f output/direct-ip-v4.txt ./direct-ip-v4.txt
+          cp -f output/direct-ip-v6.txt ./direct-ip-v6.txt
+
+          git add direct-domain.txt proxy-domain.txt direct-ip-v4.txt direct-ip-v6.txt
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update merged rules $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push origin release
+
+      - name: Purge jsdelivr CDN
+        run: |
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/direct-domain.txt"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/proxy-domain.txt"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/direct-ip-v4.txt"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/direct-ip-v6.txt"
