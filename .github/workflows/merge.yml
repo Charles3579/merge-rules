@@ -2,8 +2,7 @@ name: Merge Rules
 
 on:
   schedule:
-    # Run daily at UTC 22:00
-    - cron: "0 22 * * *"
+    - cron: "0 18 * * *"
   workflow_dispatch:
 
 permissions:
