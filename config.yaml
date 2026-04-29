@@ -29,7 +29,6 @@ rules:
     type: ip
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v4.txt
-      - https://ispip.clang.cn/all_cn.txt
       - https://raw.githubusercontent.com/gaoyifan/china-operator-ip/refs/heads/ip-lists/china.txt
     exclusions: []
 
@@ -37,6 +36,5 @@ rules:
     type: ip
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v6.txt
-      - https://ispip.clang.cn/all_cn_ipv6.txt
       - https://raw.githubusercontent.com/gaoyifan/china-operator-ip/refs/heads/ip-lists/china6.txt
     exclusions: []
