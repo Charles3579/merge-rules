@@ -5,12 +5,14 @@
 
 rules:
   proxy-domain:
+    type: domain
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/proxy-domain.txt
       - https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/refs/heads/release/gfw.txt
     exclusions: []
 
   direct-domain:
+    type: domain
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-domain.txt
       - https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/refs/heads/master/accelerated-domains.china.conf
@@ -24,6 +26,7 @@ rules:
       - xn--io0a7i
 
   direct-ip-v4:
+    type: ip
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v4.txt
       - https://ispip.clang.cn/all_cn.txt
@@ -31,6 +34,7 @@ rules:
     exclusions: []
 
   direct-ip-v6:
+    type: ip
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v6.txt
       - https://ispip.clang.cn/all_cn_ipv6.txt
