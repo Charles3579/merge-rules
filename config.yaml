@@ -30,6 +30,7 @@ rules:
     sources:
       - https://raw.githubusercontent.com/Charles3579/proxy-rules/refs/heads/release/direct-ip-v4.txt
       - https://raw.githubusercontent.com/gaoyifan/china-operator-ip/refs/heads/ip-lists/china.txt
+      - https://raw.githubusercontent.com/17mon/china_ip_list/refs/heads/master/china_ip_list.txt
     exclusions: []
 
   direct-ip-v6:
