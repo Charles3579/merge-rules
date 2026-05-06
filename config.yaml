@@ -24,6 +24,19 @@ rules:
       - xn--55qx5d
       - xn--fiqs8s
       - xn--io0a7i
+      - futu5.com
+      - futuau.com
+      - futufin.com
+      - futuhn.com
+      - futunn.com
+      - fututrade.com
+      - fututrustee.com
+      - itiger.com
+      - itigergrowth.com
+      - itigergrowtha.com
+      - moomoo.com
+      - moomooequity.com
+      - moomootrustee.com
 
   direct-ip-v4:
     type: ip
