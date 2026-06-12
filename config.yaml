@@ -24,19 +24,34 @@ rules:
       - xn--55qx5d
       - xn--fiqs8s
       - xn--io0a7i
-      - futu5.com
-      - futuau.com
+      - futuesop.com
       - futufin.com
+      - futuhk.com
+      - futuhkapp.com
       - futuhn.com
+      - futuholdings.com
+      - futuniuniu.com
       - futunn.com
-      - fututrade.com
-      - fututrustee.com
+      - futustatic.com
       - itiger.com
       - itigergrowth.com
       - itigergrowtha.com
+      - itigerup.com
+      - laohu8.com
+      - skytigris.cn
       - moomoo.com
       - moomooequity.com
       - moomootrustee.com
+      - longbridge.cloud
+      - longbridge.com
+      - longbridge.global
+      - longbridge.hk
+      - longbridge.sg
+      - longbridgeapp.com
+      - longportapp.com
+      - lbctrl.com
+      - lbkrs.com
+      - wbrks.com
 
   direct-ip-v4:
     type: ip
