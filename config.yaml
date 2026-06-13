@@ -24,30 +24,52 @@ rules:
       - xn--55qx5d
       - xn--fiqs8s
       - xn--io0a7i
+      - binance.com
+      - okx.com
+      - gate.com
+      - gate.io
+      - htx.com
+      - bybit.com
+      - coinbase.com
+      - kraken.com
+      - futu.cn
+      - futu.link
+      - futu5.com
+      - futuau.com
       - futuesop.com
       - futufin.com
       - futuhk.com
+      - futuhk1.com
+      - futuhk2.com
       - futuhkapp.com
       - futuhn.com
       - futuholdings.com
       - futuniuniu.com
       - futunn.com
+      - futuoa.com
+      - futusg.com
       - futustatic.com
+      - fututrade.com
+      - moomoo.com
+      - moomooequity.com
+      - moomootrustee.com
       - itiger.com
       - itigergrowth.com
       - itigergrowtha.com
       - itigerup.com
       - laohu8.com
       - skytigris.cn
-      - moomoo.com
-      - moomooequity.com
-      - moomootrustee.com
+      - tigerbbs.cn
+      - tigerbbs.com
+      - xiaohu8.com
       - longbridge.cloud
+      - longbridge.cn
       - longbridge.com
       - longbridge.global
       - longbridge.hk
       - longbridge.sg
       - longbridgeapp.com
+      - longbridgehk.com
       - longportapp.com
       - lbctrl.com
       - lbkrs.com
