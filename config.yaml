@@ -74,6 +74,7 @@ rules:
       - lbctrl.com
       - lbkrs.com
       - wbrks.com
+      - naixi.net
 
   direct-ip-v4:
     type: ip
